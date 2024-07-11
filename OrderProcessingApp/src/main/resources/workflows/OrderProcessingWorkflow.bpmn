@@ -43,7 +43,7 @@
     <bpmn:endEvent id="Event_1a3ohf6">
       <bpmn:incoming>Flow_1dvv3w9</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:serviceTask id="Activity_0rpfmv0" name="Place order in OMS" camunda:delegateExpression="#{PlaceOrderInOrderMangSystem}">
+    <bpmn:serviceTask id="Activity_0rpfmv0" name="Place order" camunda:delegateExpression="#{PlaceOrderInOrderMangSystem}">
       <bpmn:incoming>Flow_18ii3um</bpmn:incoming>
       <bpmn:outgoing>Flow_1jbqbi9</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -63,10 +63,6 @@
       <bpmn:outgoing>Flow_0ay18fb</bpmn:outgoing>
     </bpmn:parallelGateway>
     <bpmn:sequenceFlow id="Flow_013yray" sourceRef="Gateway_0s0m0wq" targetRef="Activity_087e74d" />
-    <bpmn:task id="Activity_087e74d">
-      <bpmn:incoming>Flow_013yray</bpmn:incoming>
-      <bpmn:outgoing>Flow_0qk5wse</bpmn:outgoing>
-    </bpmn:task>
     <bpmn:sequenceFlow id="Flow_0ay18fb" sourceRef="Gateway_0s0m0wq" targetRef="Activity_1vohoya" />
     <bpmn:task id="Activity_1vohoya" name="Send confirmation email">
       <bpmn:incoming>Flow_0ay18fb</bpmn:incoming>
@@ -81,6 +77,10 @@
     <bpmn:sequenceFlow id="Flow_0w5mor0" sourceRef="Gateway_0hheolw" targetRef="Activity_0dpc5x3" />
     <bpmn:sequenceFlow id="Flow_0qk5wse" sourceRef="Activity_087e74d" targetRef="Gateway_0hheolw" />
     <bpmn:sequenceFlow id="Flow_0pairho" sourceRef="Activity_1vohoya" targetRef="Gateway_0hheolw" />
+    <bpmn:serviceTask id="Activity_087e74d" name="Update order status">
+      <bpmn:incoming>Flow_013yray</bpmn:incoming>
+      <bpmn:outgoing>Flow_0qk5wse</bpmn:outgoing>
+    </bpmn:serviceTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1qpsxgs">
@@ -120,15 +120,16 @@
       <bpmndi:BPMNShape id="Gateway_0jq0ngv_di" bpmnElement="Gateway_0s0m0wq">
         <dc:Bounds x="945" y="260" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_087e74d_di" bpmnElement="Activity_087e74d">
-        <dc:Bounds x="1020" y="170" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1vohoya_di" bpmnElement="Activity_1vohoya">
         <dc:Bounds x="1020" y="310" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_0hheolw_di" bpmnElement="Gateway_0hheolw" isMarkerVisible="true">
         <dc:Bounds x="1175" y="260" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1o1ztun_di" bpmnElement="Activity_087e74d">
+        <dc:Bounds x="1020" y="170" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_06wcih8_di" bpmnElement="Flow_06wcih8">
         <di:waypoint x="275" y="285" />
