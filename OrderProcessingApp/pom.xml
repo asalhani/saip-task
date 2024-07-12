@@ -31,6 +31,14 @@
         <scope>import</scope>
         <type>pom</type>
       </dependency>
+
+      <dependency>
+        <groupId>org.camunda.connect</groupId>
+        <artifactId>camunda-connect-bom</artifactId>
+        <scope>import</scope>
+        <type>pom</type>
+        <version>1.6.0</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -90,11 +98,26 @@
       <artifactId>js-scriptengine</artifactId>
       <version>21.3.3</version>
     </dependency>
-<!--    <dependency>-->
-<!--      <groupId>org.openjdk.nashorn</groupId>-->
-<!--      <artifactId>nashorn-core</artifactId>-->
-<!--      <version>15.4</version>-->
-<!--    </dependency>-->
+
+    <!-- HTTP Connector Deps. -->
+    <dependency>
+      <groupId>org.camunda.connect</groupId>
+      <artifactId>camunda-connect-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.camunda.connect</groupId>
+      <artifactId>camunda-connect-http-client</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.camunda.bpm</groupId>
+      <artifactId>camunda-engine-plugin-connect</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>6.1.4</version>
+    </dependency>
+
   </dependencies>
 
   <build>

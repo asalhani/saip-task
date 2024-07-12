@@ -1,8 +1,12 @@
 package com.orderprocessing.asalhani.serviceTaskConsumers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.orderprocessing.asalhani.dto.OrderDetails;
+import com.orderprocessing.asalhani.interfaces.InventoryService;
 import org.camunda.bpm.engine.delegate.BpmnError;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.logging.Logger;
@@ -10,23 +14,23 @@ import java.util.logging.Logger;
 @Component("CheckInventoryAvailabilityTaskConsumer")
 public class CheckInventoryAvailability  implements JavaDelegate {
 
+    @Autowired
+    private InventoryService inventoryService;
+
     private final static Logger LOGGER = Logger.getLogger("CheckInventoryAvailability");
 
     @Override
     public void execute(DelegateExecution execution) throws Exception {
 
-        //throw new BpmnError("General_Error", "Inventory rejected the order - General BPMN Error from " + CheckInventoryAvailability.class);
-        // throw new Exception("test excptoin from java app");
+        // JSON Var deserialization
+        var orderDetailsVar = execution.getVariableTyped("OrderDetails", false);
+        ObjectMapper mapper = new ObjectMapper();
+        OrderDetails orderDetails = mapper.readValue(orderDetailsVar.getValue().toString(), OrderDetails.class);
 
-     //   var orderDetails = execution.getVariable("OrderDetails");
+        var inventoryResult = inventoryService.CheckInventory(orderDetails.getProducts());
 
-        // TODO: Call external (mocked) API
+        execution.setVariable("IsOrderFulfilled", inventoryResult);
 
-        // TODO: Handle BPMN error as rqeuested
-
-        // TODO: Set "IsOrderFulfilled" in a dynamic way (if order number is even = true, odd = false)
-        execution.setVariable("IsOrderFulfilled", true);
-
-        LOGGER.info("IsOrderFulfilled = " + true);
+        LOGGER.info("IsOrderFulfilled = " + inventoryResult);
     }
 }
