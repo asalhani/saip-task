@@ -18,7 +18,7 @@
     <bpmn:startEvent id="OrderPlaced_StartEvent" name="Order placed">
       <bpmn:outgoing>Flow_06wcih8</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:userTask id="FillOrderDetails_UserTask" name="Fill order details" camunda:formKey="camunda-forms:app:order-input-form.form" camunda:assignee="admin">
+    <bpmn:userTask id="FillOrderDetails_UserTask" name="Fill order details" camunda:formRef="OrderInputForm" camunda:formRefBinding="latest" camunda:assignee="admin">
       <bpmn:extensionElements />
       <bpmn:incoming>Flow_06wcih8</bpmn:incoming>
       <bpmn:outgoing>Flow_1b7c961</bpmn:outgoing>
@@ -95,7 +95,7 @@ print("OrderTotal variable set: " + totalPrice);</bpmn:script>
         <bpmn:incoming>Flow_0fm003c</bpmn:incoming>
       </bpmn:endEvent>
       <bpmn:sequenceFlow id="Flow_0fm003c" sourceRef="Activity_1ro8vl8" targetRef="Event_0kprrr1" />
-      <bpmn:userTask id="Activity_1ro8vl8" name="Check &#38; fix error" camunda:formKey="camunda-forms:app:manual-error-handler-form.form" camunda:assignee="admin">
+      <bpmn:userTask id="Activity_1ro8vl8" name="Check &#38; fix error" camunda:formRef="ManualErrorHandlerForm" camunda:formRefBinding="latest" camunda:assignee="admin">
         <bpmn:extensionElements />
         <bpmn:incoming>Flow_0rksknu</bpmn:incoming>
         <bpmn:outgoing>Flow_0fm003c</bpmn:outgoing>

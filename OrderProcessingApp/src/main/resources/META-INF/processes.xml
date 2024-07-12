@@ -1,0 +1,25 @@
+<process-application
+        xmlns="http://www.camunda.org/schema/1.0/ProcessApplication"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <process-archive name="forms">
+        <process-engine>default</process-engine>
+        <resource>forms/manual-error-handler-form.form</resource>
+        <resource>forms/order-input-form.form</resource>
+        <properties>
+            <property name="isDeleteUponUndeploy">false</property>
+            <property name="isScanForProcessDefinitions">false</property>
+            <!--        <property name="additionalResourceSuffixes">groovy,py</property>-->
+        </properties>
+    </process-archive>
+
+    <process-archive name="order-processing-app">
+        <process-engine>default</process-engine>
+        <properties>
+            <property name="isDeleteUponUndeploy">false</property>
+            <property name="isScanForProcessDefinitions">true</property>
+            <!--        <property name="additionalResourceSuffixes">groovy,py</property>-->
+        </properties>
+    </process-archive>
+
+</process-application>
