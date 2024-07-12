@@ -15,7 +15,7 @@ public class CheckInventoryAvailability  implements JavaDelegate {
     @Override
     public void execute(DelegateExecution execution) throws Exception {
 
-        throw new BpmnError("business_error", "Error from " + CheckInventoryAvailability.class);
+        throw new BpmnError("General_Error", "Inventory rejected the order - General BPMN Error from " + CheckInventoryAvailability.class);
         // throw new Exception("test excptoin from java app");
 
      //   var orderDetails = execution.getVariable("OrderDetails");

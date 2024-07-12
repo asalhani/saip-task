@@ -12,6 +12,10 @@
       <bpmn:text>Task consumer implemented as "Java Class"</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_1k26du7" associationDirection="None" sourceRef="CheckInventoryAvailability_ServiceTask" targetRef="TextAnnotation_0t9y90i" />
+    <bpmn:textAnnotation id="TextAnnotation_1r1jsh8">
+      <bpmn:text>Option 1: Handle errors globally</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1dr1jt2" associationDirection="None" sourceRef="Activity_0vbns47" targetRef="TextAnnotation_1r1jsh8" />
   </bpmn:collaboration>
   <bpmn:process id="OrderPlacementProcess" name="Order Placement Process" isExecutable="true" camunda:historyTimeToLive="0">
     <bpmn:laneSet id="LaneSet_0pc7wgq" />
@@ -83,12 +87,12 @@ print("OrderTotal variable set: " + totalPrice);</bpmn:script>
     </bpmn:serviceTask>
     <bpmn:endEvent id="Event_0su1i76">
       <bpmn:incoming>Flow_19fsd0q</bpmn:incoming>
-      <bpmn:errorEventDefinition id="ErrorEventDefinition_1piadim" errorRef="Error_1qhcbd4" />
+      <bpmn:errorEventDefinition id="ErrorEventDefinition_1piadim" errorRef="Error_0c9sxap" />
     </bpmn:endEvent>
     <bpmn:subProcess id="Activity_0vbns47" name="Global Error Handler" triggeredByEvent="true">
       <bpmn:startEvent id="Event_1jp12x4">
         <bpmn:outgoing>Flow_0rksknu</bpmn:outgoing>
-        <bpmn:errorEventDefinition id="ErrorEventDefinition_1kyl3mb" errorRef="Error_1qhcbd4" />
+        <bpmn:errorEventDefinition id="ErrorEventDefinition_1kyl3mb" errorRef="Error_0c9sxap" />
       </bpmn:startEvent>
       <bpmn:sequenceFlow id="Flow_0rksknu" sourceRef="Event_1jp12x4" targetRef="Activity_1ro8vl8" />
       <bpmn:endEvent id="Event_0kprrr1">
@@ -103,7 +107,7 @@ print("OrderTotal variable set: " + totalPrice);</bpmn:script>
     </bpmn:subProcess>
     <bpmn:boundaryEvent id="Event_1jiyalx" attachedToRef="CheckInventoryAvailability_ServiceTask">
       <bpmn:outgoing>Flow_19fsd0q</bpmn:outgoing>
-      <bpmn:errorEventDefinition id="ErrorEventDefinition_08yi87k" errorRef="Error_1qhcbd4" camunda:errorCodeVariable="ErrorCode" camunda:errorMessageVariable="ErrorMessage" />
+      <bpmn:errorEventDefinition id="ErrorEventDefinition_08yi87k" errorRef="Error_0c9sxap" camunda:errorCodeVariable="ErrorCode" camunda:errorMessageVariable="ErrorMessage" />
     </bpmn:boundaryEvent>
     <bpmn:sequenceFlow id="Flow_06wcih8" sourceRef="OrderPlaced_StartEvent" targetRef="FillOrderDetails_UserTask" />
     <bpmn:sequenceFlow id="Flow_1b7c961" sourceRef="FillOrderDetails_UserTask" targetRef="Activity_0b7uh9q" />
@@ -122,6 +126,7 @@ print("OrderTotal variable set: " + totalPrice);</bpmn:script>
     <bpmn:sequenceFlow id="Flow_19fsd0q" sourceRef="Event_1jiyalx" targetRef="Event_0su1i76" />
   </bpmn:process>
   <bpmn:error id="Error_1qhcbd4" name="BusinessErrorEvent" errorCode="business_error" />
+  <bpmn:error id="Error_0c9sxap" name="GeneralBpmnError" errorCode="General_Error" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1qpsxgs">
       <bpmndi:BPMNShape id="Participant_1vdhyd2_di" bpmnElement="Participant_1vdhyd2" isHorizontal="true">
@@ -270,6 +275,10 @@ print("OrderTotal variable set: " + totalPrice);</bpmn:script>
         <dc:Bounds x="890" y="50" width="300" height="60" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1dr1jt2_di" bpmnElement="Association_1dr1jt2">
+        <di:waypoint x="374" y="420" />
+        <di:waypoint x="320" y="390" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="TextAnnotation_0t9y90i_di" bpmnElement="TextAnnotation_0t9y90i">
         <dc:Bounds x="720" y="160" width="100" height="55" />
         <bpmndi:BPMNLabel />
@@ -290,6 +299,10 @@ print("OrderTotal variable set: " + totalPrice);</bpmn:script>
         <di:waypoint x="1380" y="170" />
         <di:waypoint x="1380" y="110" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_1r1jsh8_di" bpmnElement="TextAnnotation_1r1jsh8" bioc:stroke="#e53935" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#e53935">
+        <dc:Bounds x="220" y="347" width="100" height="55" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>
