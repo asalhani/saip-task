@@ -1,7 +1,7 @@
 package com.orderprocessing.asalhani.serviceTaskConsumers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.orderprocessing.asalhani.dto.OrderDetails;
+import com.orderprocessing.asalhani.dto.processVars.OrderDetails;
+import com.orderprocessing.asalhani.shared.ProcessConfiguration;
 import org.camunda.bpm.engine.delegate.BpmnError;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
@@ -18,15 +18,13 @@ public class SendConfirmationEmail implements JavaDelegate {
     public void execute(DelegateExecution execution) throws Exception {
 
         // JSON Var deserialization
-        var orderDetailsVar = execution.getVariableTyped("OrderDetails", false);
-        ObjectMapper mapper = new ObjectMapper();
-        OrderDetails orderDetails = mapper.readValue(orderDetailsVar.getValue().toString(), OrderDetails.class);
-
+        OrderDetails orderDetails = ProcessConfiguration.Util.DeserializeOrderDetailsJson(execution);
 
         var emailVar = orderDetails.getEmail();
         if(emailVar == null){
-            throw new BpmnError("InvalidEmail", "Receiver Email is empty");
+            throw new BpmnError(ProcessConfiguration.BpmnErrorCodes.INVALID_EMAIL, "Receiver Email is empty");
         }
+
         LOGGER.info("Confirmation email sent...");
     }
 }

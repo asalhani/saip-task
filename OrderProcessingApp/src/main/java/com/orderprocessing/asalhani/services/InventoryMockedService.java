@@ -1,7 +1,7 @@
 package com.orderprocessing.asalhani.services;
 
 
-import com.orderprocessing.asalhani.dto.Product;
+import com.orderprocessing.asalhani.dto.processVars.Product;
 import com.orderprocessing.asalhani.interfaces.InventoryService;
 import org.springframework.stereotype.Service;
 

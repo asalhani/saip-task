@@ -1,13 +1,11 @@
 package com.orderprocessing.asalhani.serviceTaskConsumers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.orderprocessing.asalhani.dto.OrderDetails;
-import com.orderprocessing.asalhani.dto.OrderManagmentResponseDto;
+import com.orderprocessing.asalhani.dto.processVars.OrderDetails;
+import com.orderprocessing.asalhani.dto.processVars.OrderManagmentResponseDto;
+import com.orderprocessing.asalhani.shared.*;
 import org.camunda.bpm.engine.delegate.BpmnError;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
-import org.camunda.bpm.engine.variable.Variables;
-import org.camunda.bpm.engine.variable.value.ObjectValue;
 import org.springframework.stereotype.Component;
 
 import java.util.logging.Logger;
@@ -21,9 +19,7 @@ public class PlaceOrderInOrderMangSystem implements JavaDelegate {
     public void execute(DelegateExecution execution) throws Exception {
 
         // JSON Var deserialization
-        var orderDetailsVar = execution.getVariableTyped("OrderDetails", false);
-        ObjectMapper mapper = new ObjectMapper();
-        OrderDetails orderDetails = mapper.readValue(orderDetailsVar.getValue().toString(), OrderDetails.class);
+        OrderDetails orderDetails = ProcessConfiguration.Util.DeserializeOrderDetailsJson(execution);
 
         // TODO: Call external (mocked) API
 
@@ -41,9 +37,10 @@ public class PlaceOrderInOrderMangSystem implements JavaDelegate {
 //        ObjectValue typedCustomerValue = Variables.objectValue(response).serializationDataFormat("application/json").create();
 //        execution.setVariable("OrderMangSystemResponse", typedCustomerValue);
 
-        var orderTotalVar = execution.getVariable("OrderTotal");
+        var orderTotalVar = execution.getVariable(ProcessConfiguration.ProcessVars.ORDER_TOTAL);
         var orderTotal = Double.parseDouble(orderTotalVar.toString());
         if(orderTotal < 1)
-            throw new BpmnError("OrderTotalError", "Order total should be greater than 1 - Specific BPMN Error from " + CheckInventoryAvailability.class);
+            throw new BpmnError(ProcessConfiguration.BpmnErrorCodes.ORDER_TOTAL_ERROR,
+                    "Order total should be greater than 1 - Specific BPMN Error from " + CheckInventoryAvailability.class);
     }
 }

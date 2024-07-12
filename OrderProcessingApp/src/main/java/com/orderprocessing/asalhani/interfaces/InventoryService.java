@@ -1,6 +1,6 @@
 package com.orderprocessing.asalhani.interfaces;
 
-import com.orderprocessing.asalhani.dto.Product;
+import com.orderprocessing.asalhani.dto.processVars.Product;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.orderprocessing.asalhani.dto;
+package com.orderprocessing.asalhani.dto.processVars;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

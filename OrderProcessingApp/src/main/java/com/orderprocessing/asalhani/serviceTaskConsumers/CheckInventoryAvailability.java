@@ -1,13 +1,12 @@
 package com.orderprocessing.asalhani.serviceTaskConsumers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.orderprocessing.asalhani.dto.OrderDetails;
+import com.orderprocessing.asalhani.dto.processVars.OrderDetails;
 import com.orderprocessing.asalhani.interfaces.InventoryService;
-import org.camunda.bpm.engine.delegate.BpmnError;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import  com.orderprocessing.asalhani.shared.*;
 
 import java.util.logging.Logger;
 
@@ -23,14 +22,10 @@ public class CheckInventoryAvailability  implements JavaDelegate {
     public void execute(DelegateExecution execution) throws Exception {
 
         // JSON Var deserialization
-        var orderDetailsVar = execution.getVariableTyped("OrderDetails", false);
-        ObjectMapper mapper = new ObjectMapper();
-        OrderDetails orderDetails = mapper.readValue(orderDetailsVar.getValue().toString(), OrderDetails.class);
+        OrderDetails orderDetails = ProcessConfiguration.Util.DeserializeOrderDetailsJson(execution);
 
         var inventoryResult = inventoryService.CheckInventory(orderDetails.getProducts());
 
-        execution.setVariable("IsOrderFulfilled", inventoryResult);
-
-        LOGGER.info("IsOrderFulfilled = " + inventoryResult);
+        execution.setVariable(ProcessConfiguration.ProcessVars.IS_ORDER_FULFILLED, inventoryResult);
     }
 }
