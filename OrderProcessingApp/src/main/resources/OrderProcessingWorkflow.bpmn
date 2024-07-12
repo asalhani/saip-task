@@ -18,7 +18,7 @@
     <bpmn:startEvent id="OrderPlaced_StartEvent" name="Order placed">
       <bpmn:outgoing>Flow_06wcih8</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:userTask id="FillOrderDetails_UserTask" name="Fill order details" camunda:formRef="OrderInputForm" camunda:formRefBinding="latest" camunda:assignee="admin">
+    <bpmn:userTask id="FillOrderDetails_UserTask" name="Fill order details" camunda:formKey="camunda-forms:app:order-input-form.form" camunda:assignee="admin">
       <bpmn:extensionElements />
       <bpmn:incoming>Flow_06wcih8</bpmn:incoming>
       <bpmn:outgoing>Flow_1b7c961</bpmn:outgoing>
@@ -95,7 +95,7 @@ print("OrderTotal variable set: " + totalPrice);</bpmn:script>
         <bpmn:incoming>Flow_0fm003c</bpmn:incoming>
       </bpmn:endEvent>
       <bpmn:sequenceFlow id="Flow_0fm003c" sourceRef="Activity_1ro8vl8" targetRef="Event_0kprrr1" />
-      <bpmn:userTask id="Activity_1ro8vl8" name="Check &#38; fix error" camunda:formRef="ManualErrorHandlerForm" camunda:formRefBinding="latest" camunda:assignee="admin">
+      <bpmn:userTask id="Activity_1ro8vl8" name="Check &#38; fix error" camunda:formKey="camunda-forms:app:manual-error-handler-form.form" camunda:assignee="admin">
         <bpmn:extensionElements />
         <bpmn:incoming>Flow_0rksknu</bpmn:incoming>
         <bpmn:outgoing>Flow_0fm003c</bpmn:outgoing>
@@ -258,37 +258,37 @@ print("OrderTotal variable set: " + totalPrice);</bpmn:script>
         <di:waypoint x="880" y="410" />
         <di:waypoint x="922" y="410" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="BPMNShape_0bsw5ea" bpmnElement="Participant_0btqbn2" isHorizontal="true" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
-        <dc:Bounds x="270" y="50" width="730" height="60" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_0uzst75_di" bpmnElement="Participant_0s4nm4q" isHorizontal="true" bioc:stroke="#5b176d" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#5b176d">
         <dc:Bounds x="1190" y="50" width="440" height="60" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0bsw5ea" bpmnElement="Participant_0btqbn2" isHorizontal="true" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="270" y="50" width="730" height="60" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_0jjenym" bpmnElement="Participant_1llxvzg" isHorizontal="true" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
         <dc:Bounds x="890" y="50" width="300" height="60" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Association_1k26du7_di" bpmnElement="Association_1k26du7">
-        <di:waypoint x="819" y="245" />
-        <di:waypoint x="787" y="215" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="TextAnnotation_0t9y90i_di" bpmnElement="TextAnnotation_0t9y90i">
         <dc:Bounds x="720" y="160" width="100" height="55" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1k26du7_di" bpmnElement="Association_1k26du7">
+        <di:waypoint x="819" y="245" />
+        <di:waypoint x="787" y="215" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1yzdxew_di" bpmnElement="Flow_1yzdxew">
         <di:waypoint x="860" y="245" />
         <di:waypoint x="860" y="110" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_196ej4w_di" bpmnElement="Flow_196ej4w">
-        <di:waypoint x="1380" y="170" />
-        <di:waypoint x="1380" y="110" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1e4dr3i_di" bpmnElement="Flow_1e4dr3i">
         <di:waypoint x="1110" y="245" />
         <di:waypoint x="1110" y="110" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_196ej4w_di" bpmnElement="Flow_196ej4w">
+        <di:waypoint x="1380" y="170" />
+        <di:waypoint x="1380" y="110" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
