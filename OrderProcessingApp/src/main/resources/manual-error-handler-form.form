@@ -1,0 +1,36 @@
+{
+  "components": [
+    {
+      "label": "Error Message",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0jyv5tj",
+        "columns": null
+      },
+      "id": "Field_1fv9qea",
+      "key": "ErrorMessage",
+      "disabled": false,
+      "readonly": true
+    },
+    {
+      "label": "Error Code",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0mbvzda",
+        "columns": null
+      },
+      "id": "Field_0altc5x",
+      "key": "ErrorCode",
+      "readonly": true
+    }
+  ],
+  "type": "default",
+  "id": "ManualErrorHandlerForm",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.25.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.21.0",
+  "schemaVersion": 16
+}
