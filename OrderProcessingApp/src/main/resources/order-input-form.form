@@ -1,0 +1,83 @@
+{
+  "components": [
+    {
+      "components": [
+        {
+          "label": "Order Id",
+          "type": "number",
+          "layout": {
+            "row": "Row_19dd9en",
+            "columns": null
+          },
+          "id": "Field_08aec0x",
+          "key": "OrderId",
+          "validate": {
+            "required": true
+          }
+        },
+        {
+          "label": "Customer Name",
+          "type": "textfield",
+          "layout": {
+            "row": "Row_0jewitd",
+            "columns": null
+          },
+          "id": "Field_0t4ted9",
+          "key": "CustomerName",
+          "validate": {
+            "required": true
+          }
+        },
+        {
+          "components": [
+            {
+              "label": "Product Name",
+              "type": "textfield",
+              "layout": {
+                "row": "Row_03319ct",
+                "columns": null
+              },
+              "id": "Field_1vrikyp",
+              "key": "ProductName",
+              "validate": {
+                "required": true
+              }
+            }
+          ],
+          "showOutline": true,
+          "isRepeating": true,
+          "allowAddRemove": true,
+          "defaultRepetitions": 2,
+          "label": "Products List",
+          "type": "dynamiclist",
+          "layout": {
+            "row": "Row_0irrnbc",
+            "columns": null
+          },
+          "id": "Field_0n7umjk",
+          "path": "Products",
+          "disableCollapse": false,
+          "properties": {}
+        }
+      ],
+      "showOutline": true,
+      "label": "Order Details",
+      "type": "group",
+      "layout": {
+        "row": "Row_0gzd2el",
+        "columns": null
+      },
+      "id": "Field_0b1hzd5",
+      "path": "OrderDetails"
+    }
+  ],
+  "type": "default",
+  "id": "OrderInputForm",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.25.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.21.0",
+  "schemaVersion": 16
+}
