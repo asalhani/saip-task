@@ -3,6 +3,7 @@ package com.orderprocessing.asalhani.serviceTaskConsumers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.orderprocessing.asalhani.dto.OrderDetails;
 import com.orderprocessing.asalhani.dto.OrderManagmentResponseDto;
+import org.camunda.bpm.engine.delegate.BpmnError;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.camunda.bpm.engine.variable.Variables;
@@ -37,7 +38,12 @@ public class PlaceOrderInOrderMangSystem implements JavaDelegate {
         response.setMessage("Order successfully added.");
 
         // set var JSON value (Serialization)
-        ObjectValue typedCustomerValue = Variables.objectValue(response).serializationDataFormat("application/json").create();
-        execution.setVariable("OrderMangSystemResponse", typedCustomerValue);
+//        ObjectValue typedCustomerValue = Variables.objectValue(response).serializationDataFormat("application/json").create();
+//        execution.setVariable("OrderMangSystemResponse", typedCustomerValue);
+
+        var orderTotalVar = execution.getVariable("OrderTotal");
+        var orderTotal = Double.parseDouble(orderTotalVar.toString());
+        if(orderTotal < 1)
+            throw new BpmnError("OrderTotalError", "Order total should be greater than 1 - Specific BPMN Error from " + CheckInventoryAvailability.class);
     }
 }

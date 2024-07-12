@@ -1,5 +1,6 @@
 package com.orderprocessing.asalhani.serviceTaskConsumers;
 
+import org.camunda.bpm.engine.delegate.BpmnError;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.springframework.stereotype.Component;
@@ -14,7 +15,10 @@ public class CheckInventoryAvailability  implements JavaDelegate {
     @Override
     public void execute(DelegateExecution execution) throws Exception {
 
-        var orderDetails = execution.getVariable("OrderDetails");
+        //throw new BpmnError("General_Error", "Inventory rejected the order - General BPMN Error from " + CheckInventoryAvailability.class);
+        // throw new Exception("test excptoin from java app");
+
+     //   var orderDetails = execution.getVariable("OrderDetails");
 
         // TODO: Call external (mocked) API
 

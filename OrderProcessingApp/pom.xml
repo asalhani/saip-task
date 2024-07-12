@@ -76,6 +76,25 @@
       <artifactId>spring-boot-starter-jdbc</artifactId>
     </dependency>
 
+
+    <!-- Explicit JS engine need to be added because in JDK 17 support to JavaScript engine has been depreciated -->
+    <!-- GraalVM JavaScript Engine -->
+    <dependency>
+      <groupId>org.graalvm.js</groupId>
+      <artifactId>js</artifactId>
+      <version>21.3.3</version>
+    </dependency>
+    <!-- GraalVM JavaScript ScriptEngine -->
+    <dependency>
+      <groupId>org.graalvm.js</groupId>
+      <artifactId>js-scriptengine</artifactId>
+      <version>21.3.3</version>
+    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>org.openjdk.nashorn</groupId>-->
+<!--      <artifactId>nashorn-core</artifactId>-->
+<!--      <version>15.4</version>-->
+<!--    </dependency>-->
   </dependencies>
 
   <build>
@@ -83,7 +102,16 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>3.2.2</version>
+        <configuration>
+          <mainClass>com.orderprocessing.asalhani.Application</mainClass>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
