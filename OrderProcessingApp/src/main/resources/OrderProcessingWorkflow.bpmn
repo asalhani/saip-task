@@ -15,7 +15,10 @@
     <bpmn:textAnnotation id="TextAnnotation_1r1jsh8">
       <bpmn:text>Option 1: Handle errors globally</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:association id="Association_1dr1jt2" associationDirection="None" sourceRef="Activity_0vbns47" targetRef="TextAnnotation_1r1jsh8" />
+    <bpmn:textAnnotation id="TextAnnotation_1csvplu">
+      <bpmn:text>Option 2: Handle specific error code</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1e3yp39" associationDirection="None" sourceRef="Event_0gibase" targetRef="TextAnnotation_1csvplu" />
   </bpmn:collaboration>
   <bpmn:process id="OrderPlacementProcess" name="Order Placement Process" isExecutable="true" camunda:historyTimeToLive="0">
     <bpmn:laneSet id="LaneSet_0pc7wgq" />
@@ -25,6 +28,7 @@
     <bpmn:userTask id="FillOrderDetails_UserTask" name="Fill order details" camunda:formRef="OrderInputForm" camunda:formRefBinding="latest" camunda:assignee="admin">
       <bpmn:extensionElements />
       <bpmn:incoming>Flow_06wcih8</bpmn:incoming>
+      <bpmn:incoming>Flow_105f596</bpmn:incoming>
       <bpmn:outgoing>Flow_1b7c961</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:scriptTask id="Activity_0b7uh9q" name="Calculate products&#39; Total" scriptFormat="JavaScript">
@@ -89,22 +93,6 @@ print("OrderTotal variable set: " + totalPrice);</bpmn:script>
       <bpmn:incoming>Flow_19fsd0q</bpmn:incoming>
       <bpmn:errorEventDefinition id="ErrorEventDefinition_1piadim" errorRef="Error_0c9sxap" />
     </bpmn:endEvent>
-    <bpmn:subProcess id="Activity_0vbns47" name="Global Error Handler" triggeredByEvent="true">
-      <bpmn:startEvent id="Event_1jp12x4">
-        <bpmn:outgoing>Flow_0rksknu</bpmn:outgoing>
-        <bpmn:errorEventDefinition id="ErrorEventDefinition_1kyl3mb" errorRef="Error_0c9sxap" />
-      </bpmn:startEvent>
-      <bpmn:sequenceFlow id="Flow_0rksknu" sourceRef="Event_1jp12x4" targetRef="Activity_1ro8vl8" />
-      <bpmn:endEvent id="Event_0kprrr1">
-        <bpmn:incoming>Flow_0fm003c</bpmn:incoming>
-      </bpmn:endEvent>
-      <bpmn:sequenceFlow id="Flow_0fm003c" sourceRef="Activity_1ro8vl8" targetRef="Event_0kprrr1" />
-      <bpmn:userTask id="Activity_1ro8vl8" name="Check &#38; fix error" camunda:formRef="ManualErrorHandlerForm" camunda:formRefBinding="latest" camunda:assignee="admin">
-        <bpmn:extensionElements />
-        <bpmn:incoming>Flow_0rksknu</bpmn:incoming>
-        <bpmn:outgoing>Flow_0fm003c</bpmn:outgoing>
-      </bpmn:userTask>
-    </bpmn:subProcess>
     <bpmn:boundaryEvent id="Event_1jiyalx" attachedToRef="CheckInventoryAvailability_ServiceTask">
       <bpmn:outgoing>Flow_19fsd0q</bpmn:outgoing>
       <bpmn:errorEventDefinition id="ErrorEventDefinition_08yi87k" errorRef="Error_0c9sxap" camunda:errorCodeVariable="ErrorCode" camunda:errorMessageVariable="ErrorMessage" />
@@ -124,13 +112,42 @@ print("OrderTotal variable set: " + totalPrice);</bpmn:script>
     <bpmn:sequenceFlow id="Flow_0qk5wse" sourceRef="Activity_087e74d" targetRef="Gateway_0hheolw" />
     <bpmn:sequenceFlow id="Flow_0w5mor0" sourceRef="Gateway_0hheolw" targetRef="Event_1na1xcb" />
     <bpmn:sequenceFlow id="Flow_19fsd0q" sourceRef="Event_1jiyalx" targetRef="Event_0su1i76" />
+    <bpmn:boundaryEvent id="Event_0gibase" attachedToRef="Activity_0rpfmv0">
+      <bpmn:outgoing>Flow_1y56ud5</bpmn:outgoing>
+      <bpmn:errorEventDefinition id="ErrorEventDefinition_0h7ede0" errorRef="Error_17sqb5d" camunda:errorCodeVariable="ErrorCode" camunda:errorMessageVariable="ErrorMessage" />
+    </bpmn:boundaryEvent>
+    <bpmn:userTask id="Activity_0dyvftk" name="Check &#38; fix error" camunda:formRef="ManualErrorHandlerForm" camunda:formRefBinding="latest" camunda:assignee="admin">
+      <bpmn:incoming>Flow_1y56ud5</bpmn:incoming>
+      <bpmn:outgoing>Flow_105f596</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1y56ud5" sourceRef="Event_0gibase" targetRef="Activity_0dyvftk" />
+    <bpmn:sequenceFlow id="Flow_105f596" sourceRef="Activity_0dyvftk" targetRef="FillOrderDetails_UserTask" />
+    <bpmn:subProcess id="Activity_0vbns47" name="Global Error Handler" triggeredByEvent="true">
+      <bpmn:startEvent id="Event_1jp12x4">
+        <bpmn:outgoing>Flow_0rksknu</bpmn:outgoing>
+        <bpmn:errorEventDefinition id="ErrorEventDefinition_1kyl3mb" errorRef="Error_0c9sxap" />
+      </bpmn:startEvent>
+      <bpmn:sequenceFlow id="Flow_0rksknu" sourceRef="Event_1jp12x4" targetRef="Activity_1ro8vl8" />
+      <bpmn:endEvent id="Event_0kprrr1">
+        <bpmn:incoming>Flow_0fm003c</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:sequenceFlow id="Flow_0fm003c" sourceRef="Activity_1ro8vl8" targetRef="Event_0kprrr1" />
+      <bpmn:userTask id="Activity_1ro8vl8" name="Check &#38; fix error" camunda:formRef="ManualErrorHandlerForm" camunda:formRefBinding="latest" camunda:assignee="admin">
+        <bpmn:extensionElements />
+        <bpmn:incoming>Flow_0rksknu</bpmn:incoming>
+        <bpmn:outgoing>Flow_0fm003c</bpmn:outgoing>
+      </bpmn:userTask>
+    </bpmn:subProcess>
+    <bpmn:association id="Association_1dr1jt2" associationDirection="None" sourceRef="Activity_0vbns47" targetRef="TextAnnotation_1r1jsh8" />
   </bpmn:process>
   <bpmn:error id="Error_1qhcbd4" name="BusinessErrorEvent" errorCode="business_error" />
   <bpmn:error id="Error_0c9sxap" name="GeneralBpmnError" errorCode="General_Error" />
+  <bpmn:error id="Error_1qcv14r" name="OrderSystemError" errorCode="OrderSystemError" />
+  <bpmn:error id="Error_17sqb5d" name="OrderTotalError" errorCode="OrderTotalError" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1qpsxgs">
       <bpmndi:BPMNShape id="Participant_1vdhyd2_di" bpmnElement="Participant_1vdhyd2" isHorizontal="true">
-        <dc:Bounds x="160" y="160" width="1470" height="430" />
+        <dc:Bounds x="160" y="160" width="1470" height="640" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="OrderPlaced_StartEvent">
@@ -179,29 +196,39 @@ print("OrderTotal variable set: " + totalPrice);</bpmn:script>
       <bpmndi:BPMNShape id="Event_1enlqfp_di" bpmnElement="Event_0su1i76">
         <dc:Bounds x="922" y="392" width="36" height="36" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0wo18wu" bpmnElement="Activity_0dyvftk">
+        <dc:Bounds x="1130" y="370" width="100" height="80" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0vbns47_di" bpmnElement="Activity_0vbns47" isExpanded="true">
-        <dc:Bounds x="339" y="420" width="321" height="140" />
+        <dc:Bounds x="339" y="610" width="321" height="140" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1ususyj_di" bpmnElement="Event_1jp12x4">
-        <dc:Bounds x="362" y="472" width="36" height="36" />
+        <dc:Bounds x="362" y="662" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0kprrr1_di" bpmnElement="Event_0kprrr1">
-        <dc:Bounds x="602" y="472" width="36" height="36" />
+        <dc:Bounds x="602" y="662" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0udst4t_di" bpmnElement="Activity_1ro8vl8">
-        <dc:Bounds x="450" y="450" width="100" height="80" />
+        <dc:Bounds x="450" y="640" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0rksknu_di" bpmnElement="Flow_0rksknu">
-        <di:waypoint x="398" y="490" />
-        <di:waypoint x="450" y="490" />
+        <di:waypoint x="398" y="680" />
+        <di:waypoint x="450" y="680" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0fm003c_di" bpmnElement="Flow_0fm003c">
-        <di:waypoint x="550" y="490" />
-        <di:waypoint x="602" y="490" />
+        <di:waypoint x="550" y="680" />
+        <di:waypoint x="602" y="680" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1dr1jt2_di" bpmnElement="Association_1dr1jt2">
+        <di:waypoint x="449" y="610" />
+        <di:waypoint x="299" y="402" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Event_12a5c6e_di" bpmnElement="Event_1jiyalx">
         <dc:Bounds x="862" y="307" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0azwne6_di" bpmnElement="Event_0gibase">
+        <dc:Bounds x="1082" y="307" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_06wcih8_di" bpmnElement="Flow_06wcih8">
         <di:waypoint x="375" y="285" />
@@ -263,6 +290,17 @@ print("OrderTotal variable set: " + totalPrice);</bpmn:script>
         <di:waypoint x="880" y="410" />
         <di:waypoint x="922" y="410" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1y56ud5_di" bpmnElement="Flow_1y56ud5">
+        <di:waypoint x="1100" y="343" />
+        <di:waypoint x="1100" y="410" />
+        <di:waypoint x="1130" y="410" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_105f596_di" bpmnElement="Flow_105f596">
+        <di:waypoint x="1180" y="450" />
+        <di:waypoint x="1180" y="490" />
+        <di:waypoint x="460" y="490" />
+        <di:waypoint x="460" y="325" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_0uzst75_di" bpmnElement="Participant_0s4nm4q" isHorizontal="true" bioc:stroke="#5b176d" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#5b176d">
         <dc:Bounds x="1190" y="50" width="440" height="60" />
         <bpmndi:BPMNLabel />
@@ -275,9 +313,9 @@ print("OrderTotal variable set: " + totalPrice);</bpmn:script>
         <dc:Bounds x="890" y="50" width="300" height="60" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Association_1dr1jt2_di" bpmnElement="Association_1dr1jt2">
-        <di:waypoint x="374" y="420" />
-        <di:waypoint x="320" y="390" />
+      <bpmndi:BPMNEdge id="Association_1e3yp39_di" bpmnElement="Association_1e3yp39">
+        <di:waypoint x="1083" y="329" />
+        <di:waypoint x="1070" y="333" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="TextAnnotation_0t9y90i_di" bpmnElement="TextAnnotation_0t9y90i">
         <dc:Bounds x="720" y="160" width="100" height="55" />
@@ -301,6 +339,10 @@ print("OrderTotal variable set: " + totalPrice);</bpmn:script>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="TextAnnotation_1r1jsh8_di" bpmnElement="TextAnnotation_1r1jsh8" bioc:stroke="#e53935" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#e53935">
         <dc:Bounds x="220" y="347" width="100" height="55" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1csvplu_di" bpmnElement="TextAnnotation_1csvplu" bioc:stroke="#e53935" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#e53935">
+        <dc:Bounds x="970" y="330" width="100" height="55" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>

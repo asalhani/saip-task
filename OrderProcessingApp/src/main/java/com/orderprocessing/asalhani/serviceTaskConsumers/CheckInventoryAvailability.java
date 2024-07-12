@@ -15,7 +15,7 @@ public class CheckInventoryAvailability  implements JavaDelegate {
     @Override
     public void execute(DelegateExecution execution) throws Exception {
 
-        throw new BpmnError("General_Error", "Inventory rejected the order - General BPMN Error from " + CheckInventoryAvailability.class);
+        //throw new BpmnError("General_Error", "Inventory rejected the order - General BPMN Error from " + CheckInventoryAvailability.class);
         // throw new Exception("test excptoin from java app");
 
      //   var orderDetails = execution.getVariable("OrderDetails");
@@ -25,8 +25,8 @@ public class CheckInventoryAvailability  implements JavaDelegate {
         // TODO: Handle BPMN error as rqeuested
 
         // TODO: Set "IsOrderFulfilled" in a dynamic way (if order number is even = true, odd = false)
-//        execution.setVariable("IsOrderFulfilled", true);
+        execution.setVariable("IsOrderFulfilled", true);
 
-//        LOGGER.info("IsOrderFulfilled = " + true);
+        LOGGER.info("IsOrderFulfilled = " + true);
     }
 }
