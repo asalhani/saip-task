@@ -37,10 +37,26 @@
       <bpmn:incoming>Flow_06wcih8</bpmn:incoming>
       <bpmn:outgoing>Flow_1b7c961</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:scriptTask id="Activity_0b7uh9q" name="Calculate products&#39; Total">
+    <bpmn:scriptTask id="Activity_0b7uh9q" name="Calculate products&#39; Total" scriptFormat="JavaScript">
       <bpmn:incoming>Flow_1b7c961</bpmn:incoming>
       <bpmn:outgoing>Flow_14dqddg</bpmn:outgoing>
-      <bpmn:script></bpmn:script>
+      <bpmn:script>// Get the OrderDetails variable
+var orderDetails = execution.getVariable('OrderDetails');
+
+// Parse the JSON string to an object
+var orderDetailsObj = JSON.parse(orderDetails);
+
+// Initialize total price
+var totalPrice = 0;
+
+// Loop through the products array and sum the prices
+orderDetailsObj.Products.forEach(function(product) {
+  totalPrice += product.Price;
+});
+
+// Set the total price in a new process variable named 'OrderTotal'
+execution.setVariable('OrderTotal', totalPrice);
+print("OrderTotal variable set: " + totalPrice);</bpmn:script>
     </bpmn:scriptTask>
     <bpmn:exclusiveGateway id="Gateway_14glut2" default="Flow_1dvv3w9">
       <bpmn:incoming>Flow_064igbk</bpmn:incoming>
