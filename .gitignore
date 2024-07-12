@@ -23,11 +23,13 @@
 hs_err_pid*
 replay_pid*
 
-/.idea/
+*/.idea/
 
 # H2 database files
 *.mv.db
 *.trace.db
 
 # Maven target directory
-/target/
+*/target/
+
+*~$*
