@@ -44,6 +44,6 @@ public class PlaceOrderInOrderMangSystem implements JavaDelegate {
         var orderTotalVar = execution.getVariable("OrderTotal");
         var orderTotal = Double.parseDouble(orderTotalVar.toString());
         if(orderTotal < 1)
-            throw new BpmnError("OrderTotalError", "Order total should be greater than 1 - General BPMN Error from " + CheckInventoryAvailability.class);
+            throw new BpmnError("OrderTotalError", "Order total should be greater than 1 - Specific BPMN Error from " + CheckInventoryAvailability.class);
     }
 }

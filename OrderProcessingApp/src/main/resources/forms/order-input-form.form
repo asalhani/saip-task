@@ -13,7 +13,8 @@
           "key": "OrderId",
           "validate": {
             "required": true
-          }
+          },
+          "readonly": "=FormMode = \"Update\""
         },
         {
           "label": "Customer Name",
@@ -26,6 +27,25 @@
           "key": "CustomerName",
           "validate": {
             "required": true
+          },
+          "readonly": "=FormMode = \"Update\""
+        },
+        {
+          "label": "Notification Email Address",
+          "type": "textfield",
+          "layout": {
+            "row": "Row_1o8kd3x",
+            "columns": null
+          },
+          "id": "Field_0voyoye",
+          "key": "Email",
+          "validate": {
+            "validationType": "email"
+          },
+          "description": "Email address of notification receiver",
+          "readonly": false,
+          "conditional": {
+            "hide": "=FormMode = \"Create\""
           }
         },
         {
@@ -41,7 +61,8 @@
               "key": "ProductName",
               "validate": {
                 "required": true
-              }
+              },
+              "readonly": "=FormMode = \"Update\""
             },
             {
               "label": "Price",
@@ -62,7 +83,8 @@
                 "min": 0,
                 "max": 100000
               },
-              "description": "(price must be between 0 - 100000)"
+              "description": "(price must be between 0 - 100000)",
+              "readonly": "=FormMode = \"Update\""
             }
           ],
           "showOutline": true,

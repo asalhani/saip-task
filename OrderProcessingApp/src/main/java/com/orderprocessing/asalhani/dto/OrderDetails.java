@@ -12,16 +12,20 @@ public class OrderDetails implements Serializable {
     @JsonProperty("CustomerName")
     private String customerName;
 
+    @JsonProperty("Email")
+    private String email;
+
     @JsonProperty("Products")
     private List<Product> products;
 
     public OrderDetails() {
     }
 
-    public OrderDetails(Integer orderId, String customerName, List<Product> products) {
+    public OrderDetails(Integer orderId, String customerName, String email, List<Product> products) {
         this.orderId = orderId;
         this.customerName = customerName;
         this.products = products;
+        this.email = email;
     }
 
     public Integer getOrderId() {
@@ -46,5 +50,13 @@ public class OrderDetails implements Serializable {
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
