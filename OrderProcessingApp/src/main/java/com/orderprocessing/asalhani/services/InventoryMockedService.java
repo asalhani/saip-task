@@ -3,6 +3,9 @@ package com.orderprocessing.asalhani.services;
 
 import com.orderprocessing.asalhani.dto.processVars.Product;
 import com.orderprocessing.asalhani.interfaces.InventoryService;
+import com.orderprocessing.asalhani.serviceTaskConsumers.CheckInventoryAvailability;
+import com.orderprocessing.asalhani.shared.ProcessConfiguration;
+import org.camunda.bpm.engine.delegate.BpmnError;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,8 +20,10 @@ public class InventoryMockedService implements InventoryService {
 
     @Override
     public Boolean CheckInventory(List<Product> products) {
-        if(products == null)
-            return false;
+        if(products == null || products.size() == 0){
+            throw new BpmnError(ProcessConfiguration.BpmnErrorCodes.PRODUCTS_COUNT_INVALID,
+                    "Order should have at least 1 product");
+        }
 
         if(products.size() > 1)
             return true;

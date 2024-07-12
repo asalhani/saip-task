@@ -15,6 +15,8 @@ public class PlaceOrderInOrderMangSystem implements JavaDelegate {
 
     private final static Logger LOGGER = Logger.getLogger("PlaceOrderInOrderMangSystem");
 
+    private Integer MIN_ORDER_TOTAL = 1;
+    private Integer MAX_ORDER_TOTAL = 100;
     @Override
     public void execute(DelegateExecution execution) throws Exception {
 
@@ -39,8 +41,13 @@ public class PlaceOrderInOrderMangSystem implements JavaDelegate {
 
         var orderTotalVar = execution.getVariable(ProcessConfiguration.ProcessVars.ORDER_TOTAL);
         var orderTotal = Double.parseDouble(orderTotalVar.toString());
-        if(orderTotal < 1)
+
+        if(orderTotal < MIN_ORDER_TOTAL)
             throw new BpmnError(ProcessConfiguration.BpmnErrorCodes.ORDER_TOTAL_ERROR,
-                    "Order total should be greater than 1 - Specific BPMN Error from " + CheckInventoryAvailability.class);
+                    "Order total should be greater than SAR " + MIN_ORDER_TOTAL);
+
+        if(orderTotal > MAX_ORDER_TOTAL)
+            throw new BpmnError(ProcessConfiguration.BpmnErrorCodes.GENERAL_ERROR,
+                    "System is unauthorized to process order total > SAR " + MAX_ORDER_TOTAL);
     }
 }

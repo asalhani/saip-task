@@ -13,8 +13,10 @@ public class ProcessConfiguration {
     }
 
     public static class BpmnErrorCodes{
-        public static String  ORDER_TOTAL_ERROR = "OrderTotalError";
+        public static String  ORDER_TOTAL_ERROR = "TotalShouldBeGraterThan_0";
         public static String  INVALID_EMAIL = "InvalidEmail";
+        public static String PRODUCTS_COUNT_INVALID = "ProductsCountInvalid";
+        public static String GENERAL_ERROR = "General_Error";
     }
 
     public static class Util {
