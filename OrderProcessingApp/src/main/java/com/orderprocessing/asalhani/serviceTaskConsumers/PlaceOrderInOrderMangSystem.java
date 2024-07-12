@@ -19,12 +19,10 @@ public class PlaceOrderInOrderMangSystem implements JavaDelegate {
     @Override
     public void execute(DelegateExecution execution) throws Exception {
 
-
-        var typedObjectOrderValue = execution.getVariableTyped("OrderDetails", false);
+        // JSON Var deserialization
+        var orderDetailsVar = execution.getVariableTyped("OrderDetails", false);
         ObjectMapper mapper = new ObjectMapper();
-        OrderDetails orderDetails = mapper.readValue(typedObjectOrderValue.getValue().toString(), OrderDetails.class);
-
-
+        OrderDetails orderDetails = mapper.readValue(orderDetailsVar.getValue().toString(), OrderDetails.class);
 
         // TODO: Call external (mocked) API
 
@@ -32,7 +30,7 @@ public class PlaceOrderInOrderMangSystem implements JavaDelegate {
 
         // TODO: Set "IsOrderFulfilled" in a dynamic way (if order number is even = true, odd = false)
 
-        // JSON Var deserialization
+        // create response object
         var response = new OrderManagmentResponseDto();
         response.setOrderId(orderDetails.getOrderId());
         response.setSuccess(true);
@@ -41,7 +39,5 @@ public class PlaceOrderInOrderMangSystem implements JavaDelegate {
         // set var JSON value (Serialization)
         ObjectValue typedCustomerValue = Variables.objectValue(response).serializationDataFormat("application/json").create();
         execution.setVariable("OrderMangSystemResponse", typedCustomerValue);
-        
-        LOGGER.info("IsOrderFulfilled = " + true);
     }
 }

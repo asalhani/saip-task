@@ -47,18 +47,8 @@
       <bpmn:incoming>Flow_18ii3um</bpmn:incoming>
       <bpmn:outgoing>Flow_1jbqbi9</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="Flow_0pbzpq3" sourceRef="Activity_0dpc5x3" targetRef="Event_1na1xcb" />
-    <bpmn:endEvent id="Event_1na1xcb">
-      <bpmn:incoming>Flow_0pbzpq3</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:serviceTask id="Activity_0dpc5x3" camunda:type="external" camunda:topic="fsdf">
-      <bpmn:incoming>Flow_0w5mor0</bpmn:incoming>
-      <bpmn:outgoing>Flow_0pbzpq3</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="Flow_12f9b9u" sourceRef="Gateway_0s0m0wq" targetRef="Gateway_0hheolw" />
     <bpmn:parallelGateway id="Gateway_0s0m0wq">
       <bpmn:incoming>Flow_1jbqbi9</bpmn:incoming>
-      <bpmn:outgoing>Flow_12f9b9u</bpmn:outgoing>
       <bpmn:outgoing>Flow_013yray</bpmn:outgoing>
       <bpmn:outgoing>Flow_0ay18fb</bpmn:outgoing>
     </bpmn:parallelGateway>
@@ -68,24 +58,26 @@
       <bpmn:incoming>Flow_0ay18fb</bpmn:incoming>
       <bpmn:outgoing>Flow_0pairho</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:exclusiveGateway id="Gateway_0hheolw">
-      <bpmn:incoming>Flow_12f9b9u</bpmn:incoming>
-      <bpmn:incoming>Flow_0qk5wse</bpmn:incoming>
-      <bpmn:incoming>Flow_0pairho</bpmn:incoming>
-      <bpmn:outgoing>Flow_0w5mor0</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:sequenceFlow id="Flow_0w5mor0" sourceRef="Gateway_0hheolw" targetRef="Activity_0dpc5x3" />
+    <bpmn:sequenceFlow id="Flow_0w5mor0" sourceRef="Gateway_0hheolw" targetRef="Event_1na1xcb" />
     <bpmn:sequenceFlow id="Flow_0qk5wse" sourceRef="Activity_087e74d" targetRef="Gateway_0hheolw" />
     <bpmn:sequenceFlow id="Flow_0pairho" sourceRef="Activity_1vohoya" targetRef="Gateway_0hheolw" />
-    <bpmn:serviceTask id="Activity_087e74d" name="Update order status">
+    <bpmn:serviceTask id="Activity_087e74d" name="Update order status" camunda:delegateExpression="#{UpdateOrderStatusInCrm}">
       <bpmn:incoming>Flow_013yray</bpmn:incoming>
       <bpmn:outgoing>Flow_0qk5wse</bpmn:outgoing>
     </bpmn:serviceTask>
+    <bpmn:parallelGateway id="Gateway_0hheolw">
+      <bpmn:incoming>Flow_0qk5wse</bpmn:incoming>
+      <bpmn:incoming>Flow_0pairho</bpmn:incoming>
+      <bpmn:outgoing>Flow_0w5mor0</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:endEvent id="Event_1na1xcb">
+      <bpmn:incoming>Flow_0w5mor0</bpmn:incoming>
+    </bpmn:endEvent>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1qpsxgs">
       <bpmndi:BPMNShape id="Participant_1vdhyd2_di" bpmnElement="Participant_1vdhyd2" isHorizontal="true">
-        <dc:Bounds x="170" y="160" width="1370" height="310" />
+        <dc:Bounds x="170" y="160" width="1150" height="310" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="OrderPlaced_StartEvent">
@@ -111,12 +103,6 @@
         <dc:Bounds x="800" y="245" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1na1xcb_di" bpmnElement="Event_1na1xcb">
-        <dc:Bounds x="1472" y="267" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1acsmuw_di" bpmnElement="Activity_0dpc5x3">
-        <dc:Bounds x="1270" y="245" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_0jq0ngv_di" bpmnElement="Gateway_0s0m0wq">
         <dc:Bounds x="945" y="260" width="50" height="50" />
       </bpmndi:BPMNShape>
@@ -124,12 +110,15 @@
         <dc:Bounds x="1020" y="310" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_0hheolw_di" bpmnElement="Gateway_0hheolw" isMarkerVisible="true">
-        <dc:Bounds x="1175" y="260" width="50" height="50" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1o1ztun_di" bpmnElement="Activity_087e74d">
         <dc:Bounds x="1020" y="170" width="100" height="80" />
         <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1dxibew_di" bpmnElement="Gateway_0hheolw">
+        <dc:Bounds x="1175" y="260" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1na1xcb_di" bpmnElement="Event_1na1xcb">
+        <dc:Bounds x="1262" y="267" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_06wcih8_di" bpmnElement="Flow_06wcih8">
         <di:waypoint x="275" y="285" />
@@ -158,14 +147,6 @@
         <di:waypoint x="680" y="310" />
         <di:waypoint x="680" y="342" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0pbzpq3_di" bpmnElement="Flow_0pbzpq3">
-        <di:waypoint x="1370" y="285" />
-        <di:waypoint x="1472" y="285" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_12f9b9u_di" bpmnElement="Flow_12f9b9u">
-        <di:waypoint x="995" y="285" />
-        <di:waypoint x="1175" y="285" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_013yray_di" bpmnElement="Flow_013yray">
         <di:waypoint x="970" y="260" />
         <di:waypoint x="970" y="210" />
@@ -178,7 +159,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0w5mor0_di" bpmnElement="Flow_0w5mor0">
         <di:waypoint x="1225" y="285" />
-        <di:waypoint x="1270" y="285" />
+        <di:waypoint x="1262" y="285" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0qk5wse_di" bpmnElement="Flow_0qk5wse">
         <di:waypoint x="1120" y="210" />
@@ -199,7 +180,7 @@
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_0uzst75_di" bpmnElement="Participant_0s4nm4q" isHorizontal="true" bioc:stroke="#5b176d" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#5b176d">
-        <dc:Bounds x="880" y="50" width="600" height="60" />
+        <dc:Bounds x="880" y="50" width="440" height="60" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_0t9y90i_di" bpmnElement="TextAnnotation_0t9y90i">
