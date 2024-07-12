@@ -110,7 +110,8 @@ Since I do not have the actual services requested in the task, and building a st
 Below I will explain the input and the expected execution path for each one.
 
 ##### Success path
-Fill the form as per screenshot (01 - asalhani).
+Fill the form as per screenshot.
+![](/Screenshot/01.png)
 Make sure that:
 > 
 - **Order Id** does not start with number 9, since I used 9 to trigger an error event later in the process to show the concept of general error handling.
@@ -120,37 +121,48 @@ Make sure that:
 After all the service activites finished, the workflow should stop on **Correct email address**. I've created this step to show how backend can throw/raise BPMN error and in the process, we can handle it. So, open the user task, review the error and complete it.  You will notice that I'm opening the same form submitted before, but this time on **Update** mode where only **Email** field can be modified. This is to show how to make the form dynamic based on data set on the process. Complete the user task by entering a valid email address, you will notice the process completed.
 
 ##### Terminate Process Based on Data Condition
-Fill the form as per screenshot (02 - asalhani).
+Fill the form as per screenshot.
+![](/Screenshot/02.png)
 Make sure that:
 > 
 - **Order Id** does not start with number 9
 - **Number of added Products** should be 1
 - **Total sum of price** should not exceed **100** (> 100 will trigger error event later in the process)
 
-After submitting the task, you will notice that the process instance got completed. This is because the **default** path of **Excelusive gateway** has been excuted because the variable `IsOrderFulfilled` set on backend in `CheckInventoryAvailability`  consumer was false. (screenshot 3 - asalhani). Also check **Send task** `Check inventory availability` how the implementation configured (using `Java class`)
+After submitting the task, you will notice that the process instance got completed. This is because the **default** path of **Excelusive gateway** has been excuted because the variable `IsOrderFulfilled` set on backend in `CheckInventoryAvailability`  consumer was false. Also check **Send task** `Check inventory availability` how the implementation configured (using `Java class`)
+![](/Screenshot/03.png)
 
 ##### Raise Error Event and Direct Workflow to Alternative Path
-Fill the form as per screenshot (04 - asalhani).
+Fill the form as per screenshot.
+![](/Screenshot/04.png)
+
 Make sure that:
 > 
 - **Order Id** does not start with number 9
 - **Number of added Products** should be 0
 - **Total sum of price** should not exceed **100** 
 
-After submitting the task, you will notice that execution moved to **Check Error** user task (05 - asalhani). This is because in backend, BPMN error `ProductsCountInvalid` was triggred. Now open the task, you should see the error message and code (06 - asalhani). Complete the  **Check Error**, open the new task **Fill order details** and add some products and cont.
+After submitting the task, you will notice that execution moved to **Check Error** user task. This is because in backend, BPMN error `ProductsCountInvalid` was triggred. Now open the task, you should see the error message and code. Complete the  **Check Error**, open the new task **Fill order details** and add some products and cont.
+![](/Screenshot/05.png)
+![](/Screenshot/06.png)
 
 ##### Handle Undefined BPMN Error Code Globally
-Fill the form as per screenshot (07 - asalhani).
+Fill the form as per screenshot.
+![](/Screenshot/07.png)
 Make sure that:
 > 
 - **Order Id** does not start with number 9
 - **Number of added Products** should be 2 or more
 - **Total sum of price** should be greater than **100** 
 
+![](/Screenshot/08.png)
+
 After submitting the task, you will notice that execution moved to **Event sub-process** `Global Error Handler` (08 - asalhani). This showes how unhandled BPMN exception raised from backend can be handled and identified in the process to give more visibility and control over the process. Complete the **Check Error** user task the process will be completed. 
 
 ##### Service Task Implemented using HTTP-Connector + Error Handling in From Script
-Fill the form as per screenshot (09 - asalhani).
+Fill the form as per screenshot.
+![](/Screenshot/09.png)
+
 Make sure that:
 > 
 - **Order Id** MUST start with number 9
@@ -158,3 +170,6 @@ Make sure that:
 - **Total sum of price** should not exceed **100** 
 
 After submitting the task, you will notice that execution moved to **Event sub-process** `Global Error Handler` (09 - asalhani). If you check **Update CRM status (HTTP Connector)** it's implemented as `http-connector`. The error is being thrown when the response is received from backend **OrderController - update-order-status API**. When the response returned as anything other than 200 (OK) then the script output binding will throw BPMN error. Hence there is no catch for that error, global error handling will be activiated in the process. (10 - 11 - asalhani).
+
+![](/Screenshot/10.png)
+![](/Screenshot/11.png)
