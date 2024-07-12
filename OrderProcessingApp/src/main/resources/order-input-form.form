@@ -42,6 +42,27 @@
               "validate": {
                 "required": true
               }
+            },
+            {
+              "label": "Price",
+              "type": "number",
+              "layout": {
+                "row": "Row_03319ct",
+                "columns": null
+              },
+              "id": "Field_0k3cb6e",
+              "key": "Price",
+              "defaultValue": 0,
+              "decimalDigits": 1,
+              "appearance": {
+                "prefixAdorner": "SAR"
+              },
+              "validate": {
+                "required": true,
+                "min": 0,
+                "max": 100000
+              },
+              "description": "(price must be between 0 - 100000)"
             }
           ],
           "showOutline": true,
