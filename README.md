@@ -4,7 +4,6 @@ This repository contains the code and artifacts for the requested task exercise 
 
 ### Process Workflow
 ![](/Screenshot/13-workflow.png)
-(asalhani - add image to wf)
 I've designed the process to demonstrate, as much as I can, my expertise in designing using BPMN. Core concepts used:
 -	I used Camunda forms to capture the process data in the initial step, as well as to correct data and display error event message details.
 -	I used scripting as an activity (Calculate products' Total) and in variable mapping (Update CRM status (HTTP Connector)).
@@ -41,7 +40,7 @@ When the application starts, the following components will be initiated:
 ### Configuration
 I've created 2 configuration for the application:
 
-**1. application.properties file: (asalhani)**
+**1. application.properties file:**
 
 It has 2 section, Database/storage configuration:
 
@@ -69,11 +68,12 @@ It has 2 section, Database/storage configuration:
     camunda.bpm.admin-user.password=admin
 
 
-**2.   process.xml file (asalhani)**
+**2.   process.xml file**
 
 This configuration will be used by Camunda on startup to deploy the process (workflow) and supported artifacts(scripts/forms/...).
 
-### Solution Stracture (12 - asalhani)
+### Solution Stracture
+![](/Screenshot/12.png)
 |  Folder | Description   |
 | :------------ | :------------ |
 | controllers |Contains **OrderController** which acts as a mock for the CRM system. The controller is triggered/called by the **Update CRM status (HTTP Connector)** service task, which is implemented as **HTTP-Connector**.
