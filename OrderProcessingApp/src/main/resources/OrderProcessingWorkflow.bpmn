@@ -316,9 +316,11 @@ execution.setVariable('OrderTotal', totalPrice);</bpmn:script>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_17cjsw0_di" bpmnElement="Activity_0b7uh9q">
         <dc:Bounds x="589" y="325" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_173qhfl_di" bpmnElement="FillOrderDetails_UserTask">
         <dc:Bounds x="350" y="325" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_14glut2_di" bpmnElement="Gateway_14glut2" isMarkerVisible="true">
         <dc:Bounds x="965" y="340" width="50" height="50" />
