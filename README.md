@@ -3,7 +3,7 @@
 This repository contains the code and artifacts for the requested task exercise after the interview. 
 
 ### Process Workflow
-![](13-workflow.png)
+![](/Screenshot/13-workflow.png)
 (asalhani - add image to wf)
 I've designed the process to demonstrate, as much as I can, my expertise in designing using BPMN. Core concepts used:
 -	I used Camunda forms to capture the process data in the initial step, as well as to correct data and display error event message details.
