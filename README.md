@@ -8,7 +8,7 @@ I've provided 2 design for the process.
 ![](/Screenshot/Worflow.png)
 
 **2. Using multi pools and lanes to represent the outside systems as steps in process
-![](/Screenshot/Workflow - Alternative design as lanes.png)
+![](/Screenshot/Workflow%20-%20Alternative%20design%20as%20lanes.png)
 
 I've designed the process to demonstrate, as much as I can, my expertise in designing using BPMN. Core concepts used:
 -	I used Camunda forms to capture the process data in the initial step, as well as to correct data and display error event message details.
