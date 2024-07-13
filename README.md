@@ -19,22 +19,30 @@ I've designed the process to demonstrate, as much as I can, my expertise in desi
 -	I used IoC to show my understanding of the dependency injection pattern.
 -	I used JSON serialization and deserialization while dealing with Camunda variables and mocked service responses.
 
+
+
+## Prerequisites
+ -	Java SDK 17
+
+## Installation
+### Run JAR file
+-	Download the JAR file from the "Release" section
+-	Execute the command:
+```shell
+ java -jar OrderProcessingApp-1.0.0-SNAPSHOT.jar
+```
+### Build Code
+- Clone code
+- Open it with your Java IDE (I'm using Intilij Community V. 2023.2.6)
+- Restore `maven` dependencies
+- Build and run :)
+
 # Repository Overview
 The repository holds the code for a SpringBoot application. 
 When the application starts, the following components will be initiated:
 -	SpringBoot Web API exposed through `/api`.
 -	Embedded Camunda 7 engine` (V. 7.21.0)`
 -	H2 file system database to be used by Camunda engine to persist data between executions.
-
-## Prerequisites
- -	Java SDK 17
-
-## Installation
--	Download the JAR file from the "Release" section
--	Execute the command:
-```shell
- java -jar OrderProcessingApp-1.0.0-SNAPSHOT.jar
-```
 
 ## Exercise Implementation Details
 ### Configuration
