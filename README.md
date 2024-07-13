@@ -30,7 +30,7 @@ I've designed the process to demonstrate, as much as I can, my expertise in desi
 
 ## Prerequisites
  -	Java SDK 17
- -	Postman
+ -	Postman (optional if you want to run cURL request form a console)
  -	IntiliJ (Or any Java IDE)
 
 ## Installation
@@ -40,6 +40,8 @@ I've designed the process to demonstrate, as much as I can, my expertise in desi
 ```shell
  java -jar OrderProcessingApp-1.0.0-SNAPSHOT.jar
 ```
+- Restore Postman collection located in the root of the project named **SAIP Task.postman_collection.json** (optional if you want to run cURL request form a console).
+ 
 ### Build Code
 - Clone code
 - Open it with your Java IDE (I'm using Intilij Community V. 2023.2.6)
@@ -120,7 +122,7 @@ When the application starts, the Camunda engine will start up. Camunda will star
 6. The workflow now starts. Visit **Cockpit** app to check the process.
 7. Complete first user task named **Fill order details** by clicking the **all filter** in Camunda tasklist app. See the following section for form filling cases.
 8. Click **Save** then **Complete** buttons to submit and close the task.
-9
+
 
 ### Order Details Task Filling Guidelines
 Since I do not have the actual services requested in the task, and building a static mock API will not allow the reviewer to test several paths in the workflow, and building a dynamic mocking API will take more time. As a solution, using some of the inputs in the forms, like the total count of added products, and the total sum of product prices, I built the logic in the workflow to navigate paths using the mentioned parameters. 
@@ -136,6 +138,14 @@ Make sure that:
 - **Total sum of price** should not exceed **100** (> 100 will trigger error event later in the process)
 
 After all the service activites finished, the workflow should stop on **Correct email address**. I've created this step to show how backend can throw/raise BPMN error and in the process, we can handle it. So, open the user task, review the error and complete it.  You will notice that I'm opening the same form submitted before, but this time on **Update** mode where only **Email** field can be modified. This is to show how to make the form dynamic based on data set on the process. Complete the user task by entering a valid email address, you will notice the process completed.
+
+After completing **Correct email address**, the process will hold on **Order delivred** message receiver activity. This task was not requested as part of the task. However, I want to implement it to show the message receving case in my process. 
+To complete **Order delivred**, either use the Postman collection located in the root of the project named as **SAIP Task.postman_collection.json** or run the followng cURL request:
+```shell
+curl --location --request POST 'http://localhost:8080/api/order/order-delivred/{orderId}'
+```
+>
+Make sure to replace the {orderId} path variable with the order ID you entered while filling out the form. Otherwise, the API will return an error response because the correlation parameter between the Camunda engine and the backend was created using the Order ID.
 
 ##### Terminate Process Based on Data Condition
 Fill the form as per screenshot.
