@@ -131,6 +131,8 @@ Below I will explain the input and the expected execution path for each one.
 ##### Success path
 Fill the form as per screenshot.
 ![](/Screenshot/01.png)
+
+
 Make sure that:
 > 
 - **Order Id** does not start with number 9, since I used 9 to trigger an error event later in the process to show the concept of general error handling.
