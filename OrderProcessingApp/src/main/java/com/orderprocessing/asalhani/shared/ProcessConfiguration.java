@@ -7,6 +7,7 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 
 public class ProcessConfiguration {
     public static class ProcessVars{
+        public static String ORDER_ID = "OrderId";
         public static String ORDER_DETAILS = "OrderDetails";
         public static String IS_ORDER_FULFILLED = "IsOrderFulfilled";
         public static String ORDER_TOTAL = "OrderTotal";
@@ -17,6 +18,10 @@ public class ProcessConfiguration {
         public static String  INVALID_EMAIL = "InvalidEmail";
         public static String PRODUCTS_COUNT_INVALID = "ProductsCountInvalid";
         public static String GENERAL_ERROR = "General_Error";
+    }
+
+    public static class BpmnMessage{
+        public static String ORDER_DELIVRED = "OrderDelivred";
     }
 
     public static class Util {

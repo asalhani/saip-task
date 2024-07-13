@@ -1,0 +1,32 @@
+{
+	"info": {
+		"_postman_id": "529937ae-2b79-4121-bab8-fc4d842c7257",
+		"name": "SAIP Task",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16947"
+	},
+	"item": [
+		{
+			"name": "Order System Mock - orderdelivred",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/order/order-delivred/123",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"order",
+						"order-delivred",
+						"123"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
