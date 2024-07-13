@@ -3,7 +3,13 @@
 This repository contains the code and artifacts for the requested task exercise after the interview. 
 
 ### Process Workflow
-![](/Screenshot/13-workflow.png)
+I've provided 2 design for the process. 
+**1. Using single pool and outside systems represented as logical pools
+![](/Screenshot/Worflow.png)
+
+**2. Using multi pools and lanes to represent the outside systems as steps in process
+![](/Screenshot/Workflow - Alternative design as lanes.png)
+
 I've designed the process to demonstrate, as much as I can, my expertise in designing using BPMN. Core concepts used:
 -	I used Camunda forms to capture the process data in the initial step, as well as to correct data and display error event message details.
 -	I used scripting as an activity (Calculate products' Total) and in variable mapping (Update CRM status (HTTP Connector)).
@@ -23,6 +29,8 @@ I've designed the process to demonstrate, as much as I can, my expertise in desi
 
 ## Prerequisites
  -	Java SDK 17
+ -	Postman
+ -	IntiliJ (Or any Java IDE)
 
 ## Installation
 ### Run JAR file
