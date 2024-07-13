@@ -4,10 +4,11 @@ This repository contains the code and artifacts for the requested task exercise 
 
 ### Process Workflow
 I've provided 2 design for the process. 
-**1. Using single pool and outside systems represented as logical pools
+
+1. Using single pool and outside systems represented as logical pools
 ![](/Screenshot/Worflow.png)
 
-**2. Using multi pools and lanes to represent the outside systems as steps in process
+2. Using multi pools and lanes to represent the outside systems as steps in process
 ![](/Screenshot/Workflow%20-%20Alternative%20design%20as%20lanes.png)
 
 I've designed the process to demonstrate, as much as I can, my expertise in designing using BPMN. Core concepts used:
